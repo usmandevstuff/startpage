@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 
 import logo from "../assets/logo.png";
 import logoLight from "../assets/logo-light.png";
-const title = "~/";
+const title = "Muhammad Usman's Start Page";
 ---
 
 <!doctype html>
@@ -13,6 +13,7 @@ const title = "~/";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="A personal start page with links to frequently used websites." />
 		<title>{title}</title>
 		<script is:inline>
 			(function () {
@@ -348,6 +349,11 @@ const title = "~/";
 					margin: 0;
 				}
 
+				h1 {
+					margin-top: var(--spacing-md);
+					margin-bottom: var(--spacing-lg);
+				}
+
 				img,
 				[data-theme="light"] .logo-light {
 					display: none;
@@ -376,7 +382,7 @@ const title = "~/";
 		<button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme"
 		></button>
 		<nav>
-			<h1>ウスマン『Usman』</h1>
+			<h1 class="title">ウスマン『Usman』</h1>
 			<div class="search" id="search">
 				<span class="search-prompt">$ </span>
 				<input
@@ -389,55 +395,52 @@ const title = "~/";
 			</div>
 			<ul data-category="1">
 				<li data-shortcut="1">~/general</li>
-				<li><a href="https://app.todoist.com/app/inbox">todoist</a></li>
-				<li><a href="https://app.reclaim.ai/planner">reclaim</a></li>
-				<li><a href="https://app.ynab.com/">ynab</a></li>
-				<li><a href="https://grokipedia.com/">grokipedia</a></li>
+				<li><a href="https://app.todoist.com/app/inbox" target="_blank" rel="noopener noreferrer">todoist</a></li>
+				<li><a href="https://app.reclaim.ai/planner" target="_blank" rel="noopener noreferrer">reclaim</a></li>
+				<li><a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel</a></li>
+				<li><a href="https://grokipedia.com/" target="_blank" rel="noopener noreferrer">grokipedia</a></li>
 			</ul>
 			<ul data-category="2">
 				<li data-shortcut="2">~/media</li>
-				<li><a href="https://anilist.co/home">anilist</a></li>
-				<li><a href="https://tidal.com/">tidal</a></li>
-				<li><a href="https://theindex.moe/">the index</a></li>
-				<li><a href="https://releases.moe/">seadex</a></li>
+				<li><a href="https://anilist.co/home" target="_blank" rel="noopener noreferrer">anilist</a></li>
+				<li><a href="https://tidal.com/" target="_blank" rel="noopener noreferrer">tidal</a></li>
+				<li><a href="https://theindex.moe/" target="_blank" rel="noopener noreferrer">the index</a></li>
+				<li><a href="https://releases.moe/" target="_blank" rel="noopener noreferrer">seadex</a></li>
 			</ul>
 			<ul data-category="3">
 				<li data-shortcut="3">~/social</li>
-				<li><a href="https://www.reddit.com/">reddit</a></li>
+				<li><a href="https://www.reddit.com/" target="_blank" rel="noopener noreferrer">reddit</a></li>
 				<li>
-					<a href="https://www.reddit.com/">reddit/ai</a>
+					<a href="https://www.reddit.com/r/unixporn" target="_blank" rel="noopener noreferrer">r/unixporn</a>
 				</li>
-				<li><a href="https://x.com/home">x</a></li>
-        <li><a href="https://www.bsky.app/profile/usmn.dev">bluesky</a></li>
+				<li><a href="https://x.com/home" target="_blank" rel="noopener noreferrer">x</a></li>
+        <li><a href="https://bsky.app/profile/usmn.dev" target="_blank" rel="noopener noreferrer">bluesky</a></li>
 			</ul>
 			<ul data-category="4">
 				<li data-shortcut="4">~/tech</li>
-				<li><a href="https://claude.ai/new">claude</a></li>
-				<li><a href="https://openrouter.ai/models">openrouter</a></li>
-				<li><a href="https://huggingface.co/">huggingface</a></li>
-				<li><a href="https://lmarena.ai/">lmarena</a></li>
-				<li><a href="https://trendshift.io/">trendshift</a></li>
-				<li><a href="https://deepwiki.com/">deepwiki</a></li>
+				<li><a href="https://claude.ai/new" target="_blank" rel="noopener noreferrer">claude</a></li>
+				<li><a href="https://openrouter.ai/models" target="_blank" rel="noopener noreferrer">openrouter</a></li>
+				<li><a href="https://huggingface.co/" target="_blank" rel="noopener noreferrer">huggingface</a></li>
+				<li><a href="https://lmarena.ai/" target="_blank" rel="noopener noreferrer">lmarena</a></li>
+				<li><a href="https://trendshift.io/" target="_blank" rel="noopener noreferrer">trendshift</a></li>
+				<li><a href="https://deepwiki.com/" target="_blank" rel="noopener noreferrer">deepwiki</a></li>
 			</ul>
 		</nav>
 		<Image
 			class="logo-dark"
 			src={logo}
 			alt="Anime character illustration"
-			loading="lazy"
 			fetchpriority="high"
-			layout="fixed"
 			quality={90}
 			width="246"
 			height="355"
 		/>
+
 		<Image
 			class="logo-light"
 			src={logoLight}
 			alt="Anime character illustration"
-			loading="lazy"
 			fetchpriority="high"
-			layout="fixed"
 			quality={90}
 			width="246"
 			height="355"
@@ -479,20 +482,56 @@ const title = "~/";
 
 				searchInput.addEventListener("input", function () {
 					filterLinks(searchInput.value);
+					if (navIndex >= 0 && navLinks[navIndex].classList.contains("search-hidden")) {
+						clearNavSelection();
+					}
 				});
 
 				searchInput.addEventListener("keydown", function (e) {
-					if (e.key === "Enter") {
+					if (e.key === "ArrowUp" || e.key === "ArrowDown") {
 						e.preventDefault();
-						var visible = document.querySelectorAll(
-							"nav ul li:not(:first-child):not(.search-hidden) a"
-						);
+						var visibleLinks = Array.from(document.querySelectorAll("nav ul li:not(:first-child):not(.search-hidden)"));
+						if (visibleLinks.length === 0) return;
+
+						var currentVisibleIndex = -1;
+						if (navIndex >= 0) {
+							currentVisibleIndex = visibleLinks.indexOf(navLinks[navIndex]);
+						}
+
+						var nextVisibleIndex;
+						if (e.key === "ArrowUp") {
+							if(currentVisibleIndex === -1) {
+								nextVisibleIndex = visibleLinks.length - 1;
+							} else {
+								nextVisibleIndex = (currentVisibleIndex - 1 + visibleLinks.length) % visibleLinks.length;
+							}
+						} else { // ArrowDown
+							if(currentVisibleIndex === -1) {
+								nextVisibleIndex = 0;
+							} else {
+								nextVisibleIndex = (currentVisibleIndex + 1) % visibleLinks.length;
+							}
+						}
+						
+						var newLinkToSelect = visibleLinks[nextVisibleIndex];
+						var newIndexInAll = navLinks.indexOf(newLinkToSelect);
+						selectNavLink(newIndexInAll);
+
+					} else if (e.key === "Enter") {
+						e.preventDefault();
+						if (navIndex >= 0 && !navLinks[navIndex].classList.contains("search-hidden")) {
+							var a = navLinks[navIndex].querySelector("a");
+							if (a) {
+								window.open(a.href, "_blank");
+								return;
+							}
+						}
+						// Fallback to original behavior
+						var visible = document.querySelectorAll("nav ul li:not(:first-child):not(.search-hidden) a");
 						if (visible.length > 0) {
-							window.location.href = visible[0].href;
+							window.open(visible[0].href, "_blank");
 						} else if (searchInput.value.trim()) {
-							window.location.href =
-								"https://search.brave.com/search?q=" +
-								encodeURIComponent(searchInput.value.trim());
+							window.location.href = "https://duckduckgo.com/?q=" + encodeURIComponent(searchInput.value.trim());
 						}
 					} else if (e.key === "Escape") {
 						dismissSearch();
@@ -500,7 +539,7 @@ const title = "~/";
 				});
 
 				// --- Keyboard navigation ---
-				var navLinks = Array.prototype.slice.call(
+				var navLinks = Array.from(
 					document.querySelectorAll("nav ul li:not(:first-child)")
 				);
 				var navIndex = -1;
@@ -547,6 +586,38 @@ const title = "~/";
 						activateSearch();
 						return;
 					}
+					// Arrow key navigation
+					if (e.key === "ArrowUp") {
+						e.preventDefault();
+						selectNavLink(navIndex - 1);
+						return;
+					}
+					if (e.key === "ArrowDown") {
+						e.preventDefault();
+						selectNavLink(navIndex + 1);
+						return;
+					}
+					if (e.key === "ArrowLeft") {
+						e.preventDefault();
+						if (navIndex < 0) return;
+						const currentCategory = navLinks[navIndex].parentElement.dataset.category;
+						const prevCategory = parseInt(currentCategory) - 1;
+						if (categoryStarts[prevCategory] !== undefined) {
+							selectNavLink(categoryStarts[prevCategory]);
+						}
+						return;
+					}
+					if (e.key === "ArrowRight") {
+						e.preventDefault();
+						if (navIndex < 0) return;
+						const currentCategory = navLinks[navIndex].parentElement.dataset.category;
+						const nextCategory = parseInt(currentCategory) + 1;
+						if (categoryStarts[nextCategory] !== undefined) {
+							selectNavLink(categoryStarts[nextCategory]);
+						}
+						return;
+					}
+
 
 					// Tab / Shift+Tab for navigation cycling
 					if (e.key === "Tab") {
@@ -562,7 +633,7 @@ const title = "~/";
 					// Enter navigates to selected link
 					if (e.key === "Enter" && navIndex >= 0) {
 						var a = navLinks[navIndex].querySelector("a");
-						if (a) window.location.href = a.href;
+						if (a) window.open(a.href, "_blank");
 						return;
 					}
 
